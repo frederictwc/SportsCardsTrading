@@ -21,9 +21,8 @@ from selenium.common.exceptions import StaleElementReferenceException
 
 
 # identifiants
-email_address = "your@mail.com"
-password = "your_password"
-search_item = "Chief Happiness Officer"
+email_address = "frederictwc@live.com"
+password = "SBaVAmdB!L7iRvh"
 
 # fonction pause
 def pause():
@@ -40,31 +39,49 @@ capa["pageLoadStrategy"] = "none"
 driver = webdriver.Chrome(desired_capabilities=capa, chrome_options=options)
 wait = WebDriverWait(driver, 30)
 pause()
-print ("Driver 1 ouvert")
+print ("Driver 1 open")
 
 # url de depart
-linkedin_url = "https://www.linkedin.com/"
+url = "https://app.cardladder.com/card/a81mteoQzRV9WTNHdxg9/sales"
 
 # aller sur linkedin
-driver.get(linkedin_url) #1 : page principale
+driver.get(url) #1 : page principale
 try:
     wait.until(EC.presence_of_element_located(
-                    (By.ID, "login-submit"))
+                    (By.ID, "email"))
                 )
 except (TimeoutException):
     sys.exit("Error message - loading page")
 pause()
-print ("Connecte a Linkedin - 1")
+print ("Connected to cardladder")
 
 # s'identifier
-driver.find_element_by_id("login-email").send_keys(email_address)
+driver.find_element_by_id("email").send_keys(email_address)
 pause()
-driver.find_element_by_id("login-password").send_keys(password)
+driver.find_element_by_id("password").send_keys(password)
 pause()
-driver.find_element_by_id("login-submit").click()
+#driver.find_element_by_id("login-submit").click()
+button = driver.find_element_by_xpath('//button[@class="btn block"]').click()
 pause()
-wait.until(EC.element_to_be_clickable(
-    (By.ID, "nav-typeahead-wormhole"))
-)
+#wait.until(EC.element_to_be_clickable(
+#    (By.ID, "nav-typeahead-wormhole"))
+#)
 pause()
-print ("Profil connecte a Linkedin - 1")
+print ("logged in")
+driver.get(url)
+
+time.sleep(5)
+#print( driver.find_elements_by_xpath('//*[@div="data-v-d79dcbc6"]'))
+#working
+#get_div = driver.find_element_by_class_name('light').text
+get_div = driver.find_element_by_class_name('table-container').text
+
+print(get_div)
+"""
+for element in get_div:
+    print (element.text)
+    print (element.tag_name)
+    print (element.parent)
+    print (element.location)
+    print (element.size)
+"""
