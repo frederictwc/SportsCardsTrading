@@ -15,3 +15,6 @@ brew cask install chromedriver
 ```
 
 ## Usage
+```
+python3 scrape.py
+```
