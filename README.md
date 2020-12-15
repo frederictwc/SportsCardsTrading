@@ -9,5 +9,9 @@ Create a sports cards trading system that consists of the following parts
 
 
 ## Installation 
+```
+pip3 install -r requirements.txt
+brew cask install chromedriver
+```
 
 ## Usage
