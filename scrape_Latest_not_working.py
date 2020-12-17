@@ -76,6 +76,12 @@ link = open("cards_link_working.py").readlines()
 with open("blank.csv", "w") as file:
     for x in link:
         driver.get(x)
+        #Click load more sales button
+        while True:
+            #button_1 = driver.find_element_by_class_name('load-more btn secondary').click
+            #button_1 = driver.find_element_by_xpath('//button[@class="load-more.btn.secondary"]').click()
+            pause()
+        time.sleep(5)
         get_div = driver.find_element_by_class_name('table-container').text
         print(get_div)
         #!!!!!NEED TO REPLACE X WITH THE CARD NAME!!!!!
