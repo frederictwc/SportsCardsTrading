@@ -71,21 +71,29 @@ print ("logged in")
 
 #Loop for website
 
+#Replace "cards_link_working.py" file with the real file when project done
 link = open("cards_link_working.py").readlines()
 
 with open("blank.csv", "w") as file:
     for x in link:
-        driver.get(x)
+        x_link = x.split("#")[0]
+        x_name = x.split("#")[1]
+        driver.get(x_link)
         time.sleep(5)
+        
         #Click load more sales button
-        #while True:
-            #button_1 = driver.find_element_by_class_name('load-more btn secondary').click
-            #button_1 = driver.find_element_by_xpath('//button[@class="load-more.btn.secondary"]').click()
-            #pause()
+        while True:
+            #Loop the button until the button is gone
+            try:
+                button_1 = driver.find_element_by_xpath('//button[@class="load-more btn secondary"]').click()
+                pause()
+                continue
+            except:
+                break
+            
         get_div = driver.find_element_by_class_name('table-container').text
         print(get_div)
-        #!!!!!NEED TO REPLACE X WITH THE CARD NAME!!!!!
-        file.write(" %s \n %s\n " %(x, get_div)) #Reference: https://www.kite.com/python/answers/how-to-write-a-variable-to-a-file-in-python#:~:text=Use%20string%20formatting%20to%20write,Use%20file.
+        file.write(" %s \n %s\n " %(str(x_name), get_div)) #Reference: https://www.kite.com/python/answers/how-to-write-a-variable-to-a-file-in-python#:~:text=Use%20string%20formatting%20to%20write,Use%20file.
 file.close()
     
 
@@ -99,5 +107,3 @@ for element in get_div:
     print (element.location)
     print (element.size)
 """
-
-
