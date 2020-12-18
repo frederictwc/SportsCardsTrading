@@ -4,6 +4,9 @@ import time
 import random
 import sys
 import os
+import numpy as np
+
+import bs4 as bs
 
 # selenium package
 from selenium import webdriver
@@ -74,14 +77,35 @@ time.sleep(5)
 #print( driver.find_elements_by_xpath('//*[@div="data-v-d79dcbc6"]'))
 #working
 #get_div = driver.find_element_by_class_name('light').text
-get_div = driver.find_element_by_class_name('table-container').text
+#get_div = driver.find_element_by_class_name('table-container').text
+get_div = driver.find_element_by_class_name('table-container')
 
-print(get_div)
-"""
-for element in get_div:
-    print (element.text)
-    print (element.tag_name)
-    print (element.parent)
-    print (element.location)
-    print (element.size)
-"""
+html = get_div.get_attribute('innerHTML')
+soup = bs.BeautifulSoup(html)
+rows = soup.find_all('tr')
+data = []
+for row in rows:
+	data.append([row.find_all("td")[0].text,row.find_all("td")[2].text])
+data = np.array([data])
+data = data.reshape((-1,2)).astype(str)
+name_of_card = "ronaldinho_bla_bla"
+np.savetxt(f"{name_of_card}.txt",data,fmt="%s")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
