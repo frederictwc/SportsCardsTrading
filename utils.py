@@ -46,3 +46,26 @@ def open_url(driver,url):
     pause()
     driver.get(url)
     print(f"Opened:{url}")
+
+
+def open_link(driver):
+    
+    link = open("cards_link_working.py").readlines()
+    
+    with open("blank.csv", "w") as file:
+        for x in link:
+            x_link = x.split("#")[0]
+            x_name = x.split("#")[1]
+            driver.get(x_link)
+            time.sleep(5)
+            #Click load more sales button
+            while True:
+                #Loop the button until the button is gone
+                try:
+                    button_1 = driver.find_element_by_xpath('//button[@class="load-more btn secondary"]').click()
+                    pause()
+                    continue
+                except:
+                    break
+            get_table(driver)
+    file.close()
