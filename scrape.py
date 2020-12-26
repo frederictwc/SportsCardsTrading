@@ -7,6 +7,7 @@ import os
 import yaml
 import numpy as np
 import bs4 as bs
+from dateutil.parser import parse
 
 
 # selenium package
@@ -76,7 +77,7 @@ print ("logged in")
 #Loop for website
 
 #Replace "cards_link_working.py" file with the real file when project done
-link = open("cards_link_working.py").readlines()
+link = open("cards_1.1.txt").readlines()
 
 with open("output.txt", "w") as file:
     for x in link:
@@ -101,11 +102,15 @@ with open("output.txt", "w") as file:
         rows = soup.find_all('tr')
         data = []
         for row in rows:
-            data.append([row.find_all("td")[0].text,row.find_all("td")[2].text])
+            data.append([parse(row.find_all("td")[0].text).strftime('%Y-%m-%d'),row.find_all("td")[2].text.replace("$","")])
         data = np.array([data])
         data = data.reshape((-1,2)).astype(str)
-        print(data)
-        file.write("\n %s\n %s\n" %(str(x_name), data))
+        x_name = x_name.replace(" ","_")
+        x_name = x_name.replace("\n","")
+        np.savetxt(f"data/{x_name}.txt",data,fmt="%s")
+        print(f"finished:{x_name}")
+
+
 file.close()
     
 
