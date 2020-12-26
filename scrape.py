@@ -111,16 +111,3 @@ with open("output.txt", "w") as file:
         print(f"finished:{x_name}")
 
 
-file.close()
-    
-
-
-
-"""
-for element in get_div:
-    print (element.text)
-    print (element.tag_name)
-    print (element.parent)
-    print (element.location)
-    print (element.size)
-"""
