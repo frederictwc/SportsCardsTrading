@@ -2,3 +2,4 @@ selenium
 PyYAML
 beautifulsoup4
 python-dateutil
+matplotlib
